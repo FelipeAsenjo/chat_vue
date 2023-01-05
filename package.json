@@ -1,0 +1,24 @@
+{
+  "name": "chat_vue",
+  "version": "1.0.0",
+  "description": "Basic chat using NodeJS, Web Sockets and VueJS",
+  "main": "index.js",
+  "type": "module",
+  "author": "Felipe Asenjo",
+  "scripts": {
+    "start": "node ./server/index.js",
+    "dev": "nodemon ./server/index.js",
+    "test": ""
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "socket.io": "^4.5.4"
+  }
+}
