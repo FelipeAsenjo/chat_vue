@@ -1,24 +1,31 @@
 <template>
-  <HelloWorld msg="hola mundo" />
+  <HelloWorld 
+    msg="hola mundo" 
+    @click="emitMessage"
+  />
 </template>
 
-<script setup>
+<script>
   import HelloWorld from './components/HelloWorld.vue'
-  import io from 'socket.io-client'
+  import { io } from 'socket.io-client'
 
-  const socket = io('http://localhost:3000')
+  export default {
+    data() {
+      return {
+        socket: io('http://localhost:3000')
+      }
+    },
+    components: {
+      HelloWorld
+    },
+    methods: {
+      emitMessage() {
+        this.socket.emit('hello', 'world')
+      }
+    }
+  }
 </script>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>
