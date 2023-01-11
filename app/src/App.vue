@@ -1,6 +1,5 @@
 <template>
-  <main class="flex min-h-screen">
-    <!-- <SideMenu /> -->
+  <main class="min-h-screen bg-primary">
     <!-- <ChatContainer 
       msg="hola mundo" 
       @click="emitMessage"
@@ -12,7 +11,6 @@
 
 <script>
   import ChatContainer from './components/ChatContainer.vue'
-  import SideMenu from './components/SideMenu.vue'
   import { io } from 'socket.io-client'
 
   export default {
@@ -23,7 +21,6 @@
     },
     components: {
       ChatContainer,
-      SideMenu
     },
     methods: {
       emitMessage() {
