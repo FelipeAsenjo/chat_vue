@@ -1,25 +1,33 @@
 <template>
     <div class="chat-window relative">
         <ChatHeader />
-        <h1>CHAT WINDOW!!</h1>
-        <ChatInput />
+        <!-- <h1>CHAT WINDOW!!</h1> -->
+        <MessagesContainer />
+        <ChatInput @sendMessage="sendMessage" />
     </div>
 </template>
 
 <script>
 import ChatHeader from './ChatHeader.vue'
 import ChatInput from './ChatInput.vue'
+import MessagesContainer from './MessagesContainer.vue'
 
 export default {
     data() {
         return {
-
+            inputMessage: ''
         }
     },
     components: {
         ChatHeader,
-        ChatInput
-    }
+        ChatInput,
+        MessagesContainer
+    },
+    methods: {
+        sendMessage(message) {
+            console.log('sending message', message)
+        }
+    } 
 }
 </script>
 
