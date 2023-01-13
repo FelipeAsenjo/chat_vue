@@ -15,7 +15,8 @@ module.exports = {
       secondary: '#202C33',
       selected: '#2A3942',
       icon: '#8696A0',
-      text: '#DFECEF'
+      text: '#DFECEF',
+      messageSent: '#045C4B',
     }
   },
   plugins: [],

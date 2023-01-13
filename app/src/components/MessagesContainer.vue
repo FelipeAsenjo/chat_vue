@@ -4,7 +4,12 @@
     >
         <ul class="flex flex-col self-end w-full px-14">
             <li 
-                :class="[message.emitter === 'me' ? 'self-end' : '']"
+                class="mb-2 p-1.5 rounded-md w-fit"
+                :class="[
+                    message.emitter === 'me' ?
+                        'self-end bg-messageSent' :
+                        'bg-secondary'
+                ]"
                 v-for="message in messages"
             >
                 {{ message.message }}
