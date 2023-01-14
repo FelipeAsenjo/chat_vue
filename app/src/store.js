@@ -1,8 +1,15 @@
 import { createStore } from 'vuex'
+import { io } from 'socket.io-client'
+
+const socket = io('http://localhost:3000')
+
+const globalDate = new Date()
+export const randomId = globalDate.getTime()
 
 const store = createStore({
      state: {
           isAuthenticated: true,
+          userId: randomId,
           contacts: [
                {
                     name: 'Felipe',
@@ -28,15 +35,15 @@ const store = createStore({
           messages: [
                {
                     emitter: 'not me',
-                    message: 'yara yara'
+                    msg: 'yara yara'
                },
                {
                     emitter: 'not me',
-                    message: 'wum'
+                    msg: 'wum'
                },
                {
                     emitter: 'not me',
-                    message: 'pa que po'
+                    msg: 'pa que po'
                },
           ],
      },
@@ -44,15 +51,23 @@ const store = createStore({
 
      },
      mutations: {
-          sendMessage(state, payload) {
-               state.messages.push({
-                    emitter: 'me',
-                    message: payload
-               })
-          }      
+          addMessage(state, payload) {
+               state.messages.push(payload)
+          },
      },
      actions: {
-
+          sendMessage({ commit }, data) {
+               console.log(data.emitter)
+               const date = new Date()
+               const payload = {
+                    ...data,
+                    timestamp: date.getTime()
+               }
+               socket.emit('hello', payload, (res) => {
+                    console.log(res.status)
+               })               
+               commit('addMessage', payload)
+          }
      }
 })
 

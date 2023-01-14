@@ -4,15 +4,15 @@
     >
         <ul class="flex flex-col self-end w-full px-14">
             <li 
-                class="mb-2 p-1.5 rounded-md w-fit"
+                class="mb-2 py-1.5 px-3 rounded-md w-fit"
                 :class="[
-                    message.emitter === 'me' ?
+                    message.emitter === userId ?
                         'self-end bg-messageSent' :
                         'bg-secondary'
                 ]"
                 v-for="message in messages"
             >
-                {{ message.message }}
+                {{ message.msg }}
             </li>
         </ul>
     </div>
@@ -29,6 +29,7 @@ export default {
     },
     computed: {
         ...mapState({
+            userId: state => state.userId,
             messages: state => state.messages
         })
     }

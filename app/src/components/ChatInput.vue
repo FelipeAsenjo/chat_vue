@@ -6,7 +6,7 @@
         >
             <input 
                 type="text" 
-                class="p-5 rounded-lg h-8 w-full bg-selected placeholder:text-icon" 
+                class="p-5 rounded-lg h-8 w-full bg-selected outline-none placeholder:text-icon" 
                 placeholder="Type a message"
                 v-model.trim="input"
                 @input="typing"
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
@@ -28,10 +29,14 @@ export default {
             console.log('typing...')
         },
     },
+    computed: {
+        ...mapState({
+            userId: state => state.userId
+        })
+    },
     methods: {
         sendMessage() {
-            this.$store.commit('sendMessage', this.input)
-            // this.$emit('sendMessage', this.input)
+            this.$store.dispatch('sendMessage', { emitter: this.userId, msg: this.input })
             this.input = ''
         }
     }

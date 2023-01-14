@@ -1,9 +1,5 @@
 <template>
   <main class="min-h-screen bg-primary">
-    <!-- <ChatContainer 
-      msg="hola mundo" 
-      @click="emitMessage"
-    /> -->
 
     <RouterView />
   </main>
