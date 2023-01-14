@@ -17,6 +17,7 @@
 
 <script>
 import { mapState } from 'vuex'
+
 export default {
     data() {
         return {
@@ -25,18 +26,19 @@ export default {
     },
     emits: ['sendMessage'],
     computed: {
+        ...mapState({
+            userId: state => state.userId
+        }),
         typing() {
             console.log('typing...')
         },
     },
-    computed: {
-        ...mapState({
-            userId: state => state.userId
-        })
-    },
     methods: {
         sendMessage() {
-            this.$store.dispatch('sendMessage', { emitter: this.userId, msg: this.input })
+            this.$store.dispatch('sendMessage', { 
+                emitter: this.userId, 
+                msg: this.input 
+            })
             this.input = ''
         }
     }

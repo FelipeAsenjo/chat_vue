@@ -57,17 +57,15 @@ const store = createStore({
      },
      actions: {
           sendMessage({ commit }, data) {
-               console.log(data.emitter)
                const date = new Date()
                const payload = {
                     ...data,
                     timestamp: date.getTime()
                }
-               socket.emit('hello', payload, (res) => {
-                    console.log(res.status)
+               socket.emit('message', payload, (res) => {
+                    if(res.status === 'ok') console.log('message received')
                })               
-               commit('addMessage', payload)
-          }
+          },
      }
 })
 

@@ -8,6 +8,7 @@
 <script>
   import ChatContainer from './components/ChatContainer.vue'
   import { io } from 'socket.io-client'
+import { mapMutations } from 'vuex'
 
   export default {
     data() {
@@ -19,9 +20,15 @@
       ChatContainer,
     },
     methods: {
-      emitMessage() {
-        this.socket.emit('hello', 'world')
-      }
+      ...mapMutations([
+        'addMessage'
+      ])
+    },
+    mounted() {
+      this.socket.on('broadcastMessage', data => {
+        this.addMessage(data)
+        console.log('receiving messages from ', data.emitter)
+      })
     }
   }
 </script>
