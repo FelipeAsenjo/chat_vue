@@ -36,6 +36,7 @@ const isAuthenticated = store.state.isAuthenticated
 
 router.beforeEach((to, from, next) => {
     if(to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+    if(to.name === 'Login' && isAuthenticated) next({ name: 'Chat' })
 
     else next()
 })
