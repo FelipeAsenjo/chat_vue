@@ -1,6 +1,6 @@
 <template>
     <div class="chat-window relative">
-        <ChatHeader />
+        <ChatHeader :activeContact="activeContact" />
         <!-- <h1>CHAT WINDOW!!</h1> -->
         <MessagesContainer />
         <ChatInput @sendMessage="sendMessage" />
@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import ChatHeader from './ChatHeader.vue'
 import ChatInput from './ChatInput.vue'
 import MessagesContainer from './MessagesContainer.vue'
@@ -27,7 +29,12 @@ export default {
         sendMessage(message) {
             console.log('sending message', message)
         }
-    } 
+    },
+    computed: {
+        ...mapState({
+            activeContact: state => state.activeContact
+        })
+    }
 }
 </script>
 

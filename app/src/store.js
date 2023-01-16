@@ -10,42 +10,34 @@ const store = createStore({
      state: {
           isAuthenticated: true,
           userId: randomId,
+          activeContact: {},
           contacts: [
                {
                     name: 'Felipe',
+                    socketId: 'woznU1pxZXdaa-hZAAAB',
                     avatar: 'https://i.pravatar.cc/150?img=2',
-                    lastMessage: "hello world"
+                    astMessage: "hello world"
                },
                {
                     name: 'Nico',
+                    socketId: 'fkJmLb3jp3Kp_8SGAAAB',
                     avatar: 'https://i.pravatar.cc/150?img=7',
                     lastMessage: "what's going on"
                },
                {
                     name: 'Pelao',
+                    socketId: 'cvKmL2oQIsafPdkRAAAD',
                     avatar: 'https://i.pravatar.cc/150?img=3',
                     lastMessage: "Hey buddy"
                },
                {
                     name: 'Culiao',
+                    socketId: '5XIni7n7a3xUJZy5AAAD',
                     avatar: 'https://i.pravatar.cc/150?img=4',
                     lastMessage: "remember to order pizza for tonight"
                }
           ],
-          messages: [
-               {
-                    emitter: 'not me',
-                    msg: 'yara yara'
-               },
-               {
-                    emitter: 'not me',
-                    msg: 'wum'
-               },
-               {
-                    emitter: 'not me',
-                    msg: 'pa que po'
-               },
-          ],
+          messages: [],
      },
      getters: {
 
@@ -54,12 +46,17 @@ const store = createStore({
           addMessage(state, payload) {
                state.messages.push(payload)
           },
+          selectContact(state, payload) {
+               console.log(payload)
+               state.activeContact = payload
+          }
      },
      actions: {
           sendMessage({ commit }, data) {
                const date = new Date()
                const payload = {
                     ...data,
+                    messageTo: this.state.activeContact,
                     timestamp: date.getTime()
                }
                socket.emit('message', payload, (res) => {
