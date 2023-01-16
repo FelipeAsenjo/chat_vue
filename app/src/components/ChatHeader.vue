@@ -1,6 +1,6 @@
 <template>
     <header class="bg-secondary h-[59px]">
-        <AvatarImage :avatar="activeContact.avatar" />
+        <AvatarImage v-if="activeContact" :avatar="activeContact.avatar" />
     </header>
 </template>
 

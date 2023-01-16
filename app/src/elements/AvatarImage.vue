@@ -1,5 +1,10 @@
 <template>
-        <img :src="avatar" alt="avatar image" class="h-14 mx-2 lg:mx-4 rounded-full self-center">
+        <img 
+            v-if="avatar" 
+            :src="avatar" 
+            class="h-14 mx-2 lg:mx-4 rounded-full self-center"
+            alt="avatar image" 
+        >
 </template>
 
 <script>
