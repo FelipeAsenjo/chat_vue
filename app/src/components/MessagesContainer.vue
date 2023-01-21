@@ -6,7 +6,7 @@
             <li 
                 class="mb-2 py-1.5 px-3 rounded-md w-fit"
                 :class="[
-                    message.emitter === userId ?
+                    message.emitter === usersSocketId ?
                         'self-end bg-messageSent' :
                         'bg-secondary'
                 ]"
@@ -29,7 +29,7 @@ export default {
     },
     computed: {
         ...mapState({
-            userId: state => state.userId,
+            usersSocketId: state => state.usersSocketId,
             messages: state => state.messages
         })
     }

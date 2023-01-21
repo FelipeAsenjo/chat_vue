@@ -1,7 +1,5 @@
 import { createStore } from 'vuex'
-import { io } from 'socket.io-client'
-
-const socket = io('http://localhost:3000')
+import socket from './lib/socket.io'
 
 const globalDate = new Date()
 export const randomId = globalDate.getTime()
@@ -9,14 +7,15 @@ export const randomId = globalDate.getTime()
 const store = createStore({
      state: {
           isAuthenticated: true,
-          userId: randomId,
-          activeContact: {},
+          usersSocketId: '',
+          // activeContact: {},
+          activeContact: '',
           contacts: [
                {
                     name: 'Felipe',
                     socketId: 'woznU1pxZXdaa-hZAAAB',
                     avatar: 'https://i.pravatar.cc/150?img=2',
-                    astMessage: "hello world"
+                    lastMessage: "hello world"
                },
                {
                     name: 'Nico',
@@ -25,18 +24,19 @@ const store = createStore({
                     lastMessage: "what's going on"
                },
                {
-                    name: 'Pelao',
+                    name: 'Fran',
                     socketId: 'cvKmL2oQIsafPdkRAAAD',
                     avatar: 'https://i.pravatar.cc/150?img=3',
                     lastMessage: "Hey buddy"
                },
                {
-                    name: 'Culiao',
+                    name: 'Isa',
                     socketId: '5XIni7n7a3xUJZy5AAAD',
                     avatar: 'https://i.pravatar.cc/150?img=4',
                     lastMessage: "remember to order pizza for tonight"
                }
           ],
+          // messages: {},
           messages: [],
      },
      getters: {
@@ -44,11 +44,17 @@ const store = createStore({
      },
      mutations: {
           addMessage(state, payload) {
+               console.log('adding message', payload)
+               // state.messages[payload.to] = [payload, ...state.messages[payload.to]]
                state.messages.push(payload)
           },
           selectContact(state, payload) {
-               console.log(payload)
+               console.log('contact select', payload)
                state.activeContact = payload
+          },
+          saveOwnSocket(state, socket) {
+               console.log(socket)
+               state.usersSocketId = socket
           }
      },
      actions: {
@@ -56,11 +62,12 @@ const store = createStore({
                const date = new Date()
                const payload = {
                     ...data,
-                    messageTo: this.state.activeContact,
                     timestamp: date.getTime()
                }
+               // commit('addMessage')
+               // console.log(payload)
                socket.emit('message', payload, (res) => {
-                    if(res.status === 'ok') console.log('message received')
+                    // if(res.status === 'ok') console.log('message received')
                })               
           },
      }

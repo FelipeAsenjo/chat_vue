@@ -1,7 +1,6 @@
 <template>
     <div class="chat-window relative">
         <ChatHeader :activeContact="activeContact" />
-        <!-- <h1>CHAT WINDOW!!</h1> -->
         <MessagesContainer />
         <ChatInput @sendMessage="sendMessage" />
     </div>

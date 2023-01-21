@@ -6,14 +6,14 @@
 </template>
 
 <script>
-  import ChatContainer from './components/ChatContainer.vue'
-  import { io } from 'socket.io-client'
+import ChatContainer from './components/ChatContainer.vue'
 import { mapMutations } from 'vuex'
+import socket from './lib/socket.io'
 
   export default {
     data() {
       return {
-        socket: io('http://localhost:3000')
+
       }
     },
     components: {
@@ -21,13 +21,18 @@ import { mapMutations } from 'vuex'
     },
     methods: {
       ...mapMutations([
-        'addMessage'
+        'addMessage',
+        'saveOwnSocket'
       ])
     },
     mounted() {
-      this.socket.on('broadcastMessage', data => {
+      socket.on('connect', () => this.saveOwnSocket(socket.id))
+      socket.on('broadcastMessage', data => {
+        console.log('receiving data', data)
         this.addMessage(data)
-        console.log('receiving messages from ', data.emitter)
+      })
+      socket.on('newUserConnected', listOfSockets => {
+        console.log(listOfSockets)
       })
     }
   }

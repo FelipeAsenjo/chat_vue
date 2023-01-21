@@ -1,6 +1,20 @@
 <template>
     <header class="bg-secondary h-[59px]">
-        <AvatarImage v-if="activeContact" :avatar="activeContact.avatar" />
+        <div class="flex h-full justify-center" v-if="title">
+            <div class='self-center'>{{ title }}</div>
+        </div>
+        <div 
+            class="flex"
+            v-if="activeContact"
+        >
+            <AvatarImage :avatar="activeContact.avatar" />
+            <div class="self-center flex flex-col">
+                <p>{{ activeContact.name }}</p>
+                <small class="text-icon">
+                    {{ activeContact.lastMessage }}
+                </small>
+            </div>
+        </div>
     </header>
 </template>
 
@@ -14,7 +28,8 @@ export default {
         }
     },
     props: [
-        'activeContact'
+        'activeContact',
+        'title'
     ],
     components: {
         AvatarImage
