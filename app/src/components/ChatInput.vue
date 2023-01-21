@@ -27,7 +27,8 @@ export default {
     emits: ['sendMessage'],
     computed: {
         ...mapState({
-            userId: state => state.userId
+            usersSocketId: state => state.usersSocketId,
+            activeContact: state => state.activeContact
         }),
         typing() {
             console.log('typing...')
@@ -35,8 +36,13 @@ export default {
     },
     methods: {
         sendMessage() {
+            const contactIsSelected = !!Object.keys(this.activeContact).length
+            if(!contactIsSelected) return this.input = ''
+
             this.$store.dispatch('sendMessage', { 
-                emitter: this.userId, 
+                emitter: this.usersSocketId, 
+                // to: this.activeContact.socketId,
+                to: this.activeContact,
                 msg: this.input 
             })
             this.input = ''
