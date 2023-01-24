@@ -6,7 +6,7 @@
         >
             <input 
                 type="text" 
-                class="p-5 rounded-lg h-8 w-full bg-selected outline-none placeholder:text-icon" 
+                class="form-input" 
                 placeholder="Type a message"
                 v-model.trim="input"
                 @input="typing"

@@ -20,7 +20,7 @@ export default (server) => {
             // const room = `${socket.id}-${data.to}`
             // socket.emit('broadcastMessage', data)
             socket.to(data.to).emit('broadcastMessage', data)
-            console.log(socket.rooms)
+            // console.log(socket.rooms)
             // console.log(socket)
             console.log(data)
             cb({
@@ -37,34 +37,38 @@ export default (server) => {
 
 const randomNumber = maxNumber => Math.floor(Math.random() * (maxNumber + 1))
 
-const mainUser = {
-    name: 'Felipe',
-    socketId: 'woznU1pxZXdaa-hZAAAB',
-    avatar: 'https://i.pravatar.cc/150?img=1',
-    lastMessage: "hello world"
-}
-
-const contacts = [
+const users = [
     {
-        name: 'Raul',
+        username: 'Felipe',
+        password: '1234',
+        socketId: 'woznU1pxZXdaa-hZAAAB',
+        avatar: 'https://i.pravatar.cc/150?img=1',
+        lastMessage: "hello world"
+    },
+    {
+        username: 'Raul',
+        password: '1234',
         socketId: 'bFZIfiIurPfbED2PAAAE',
         avatar: `https://i.pravatar.cc/150?img=${randomNumber(120)}`,
         lastMessage: "hello world"
     },
     {
-        name: 'Nico',
+        username: 'Nico',
+        password: '1234',
         socketId: 'fkJmLb3jp3Kp_8SGAAAB',
         avatar: `https://i.pravatar.cc/150?img=${randomNumber(120)}`,
         lastMessage: "what's going on"
     },
     {
-        name: 'Fran',
+        username: 'Fran',
+        password: '1234',
         socketId: 'cvKmL2oQIsafPdkRAAAD',
         avatar: `https://i.pravatar.cc/150?img=${randomNumber(120)}`,
         lastMessage: "Hey buddy"
     },
     {
-        name: 'Isa',
+        username: 'Isa',
+        password: '1234',
         socketId: '5XIni7n7a3xUJZy5AAAD',
         avatar: `https://i.pravatar.cc/150?img=${randomNumber(120)}`,
         lastMessage: "remember to order pizza for tonight"

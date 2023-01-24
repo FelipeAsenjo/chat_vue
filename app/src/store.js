@@ -6,7 +6,7 @@ export const randomId = globalDate.getTime()
 
 const store = createStore({
      state: {
-          isAuthenticated: true,
+          isAuthenticated: false,
           usersSocketId: '',
           // activeContact: {},
           activeContact: '',
@@ -64,8 +64,8 @@ const store = createStore({
                     ...data,
                     timestamp: date.getTime()
                }
-               // commit('addMessage')
-               // console.log(payload)
+               commit('addMessage', payload)
+               console.log(payload)
                socket.emit('message', payload, (res) => {
                     // if(res.status === 'ok') console.log('message received')
                })               

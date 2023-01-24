@@ -4,13 +4,13 @@
     >
         <ul class="flex flex-col self-end w-full px-14">
             <li 
+                v-for="message in messages"
                 class="mb-2 py-1.5 px-3 rounded-md w-fit"
                 :class="[
                     message.emitter === usersSocketId ?
                         'self-end bg-messageSent' :
                         'bg-secondary'
                 ]"
-                v-for="message in messages"
             >
                 {{ message.msg }}
             </li>
