@@ -31,12 +31,18 @@ const router = createRouter({
     ]
 })
 
+let isAuthenticated = store.state.isAuthenticated
 
-const isAuthenticated = store.state.isAuthenticated
+const unsubscribe = store.subscribe((mutation, state) => {
+    if(mutation.type === 'login') {
+        isAuthenticated = state.isAuthenticated
+    }
+})
+
 
 router.beforeEach((to, from, next) => {
-    if(to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
-    if(to.name === 'Login' && isAuthenticated) next({ name: 'Chat' })
+    if(to.name !== 'Login' && !isAuthenticated) return next('/login')
+    if(to.name === 'Login' && isAuthenticated) return next('/chat')
 
     else next()
 })

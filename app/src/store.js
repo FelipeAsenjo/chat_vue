@@ -1,12 +1,15 @@
 import { createStore } from 'vuex'
+import router from './router'
 import socket from './lib/socket.io'
 
 const globalDate = new Date()
 export const randomId = globalDate.getTime()
+const serverURL = 'http://localhost:3000/api/v1'
 
 const store = createStore({
      state: {
           isAuthenticated: false,
+          user: {},
           usersSocketId: '',
           // activeContact: {},
           activeContact: '',
@@ -55,6 +58,10 @@ const store = createStore({
           saveOwnSocket(state, socket) {
                console.log(socket)
                state.usersSocketId = socket
+          },
+          login(state, payload) {
+               state.isAuthenticated = true
+               state.user = payload
           }
      },
      actions: {
@@ -70,6 +77,21 @@ const store = createStore({
                     // if(res.status === 'ok') console.log('message received')
                })               
           },
+          async login({ commit }, payload) {
+               const res = await fetch(`${serverURL}/login`, {
+                    method: 'POST',
+                    headers: {
+                         'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+               })
+               const data = await res.json() 
+
+               if(res.status === 200) {
+                    commit('login', data)
+                    router.push('/chat')
+               }
+          }
      }
 })
 

@@ -17,6 +17,7 @@ module.exports = {
       icon: '#8696A0',
       text: '#DFECEF',
       messageSent: '#045C4B',
+      error: '#CC0033'
     }
   },
   plugins: [],

@@ -1,6 +1,6 @@
 import server from './app.js'
-import config from './config/index.js'
-import socket from './libs/socket.io/index.js'
+import config from './src/config/index.js'
+import socket from './src/libs/socket.io/index.js'
 
 
 socket(server) 
