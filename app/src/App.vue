@@ -22,17 +22,14 @@ import socket from './lib/socket.io'
     methods: {
       ...mapMutations([
         'addMessage',
-        'saveOwnSocket'
+        'assignSocket'
       ])
     },
     mounted() {
-      socket.on('connect', () => this.saveOwnSocket(socket.id))
-      socket.on('broadcastMessage', data => {
-        console.log('receiving data', data)
-        this.addMessage(data)
-      })
+      socket.on('connect', () => this.assignSocket(socket.id))
+      socket.on('broadcastMessage', data => this.addMessage(data))
       socket.on('newUserConnected', listOfSockets => {
-        console.log(listOfSockets)
+        console.log(JSON.stringify(listOfSockets))
       })
     }
   }

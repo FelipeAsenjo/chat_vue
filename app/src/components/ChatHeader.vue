@@ -3,6 +3,12 @@
         <div class="flex h-full justify-center" v-if="title">
             <div class='self-center'>{{ title }}</div>
         </div>
+        <div class="flex h-full justify-center" v-if="activeContact">
+            <div class='self-center'>{{ activeContact }}</div>
+        </div>
+        <div class="flex h-full justify-center" v-if="room">
+            <div class='self-center'>{{ room }}</div>
+        </div>
         <div 
             class="flex"
             v-if="activeContact"
@@ -29,7 +35,8 @@ export default {
     },
     props: [
         'activeContact',
-        'title'
+        'title',
+        'room'
     ],
     components: {
         AvatarImage

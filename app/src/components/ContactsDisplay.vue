@@ -1,6 +1,6 @@
 <template>
     <aside>
-        <ChatHeader :title="title" />
+        <ChatHeader :title="socketId"  class="mb-1"/>
         <form @submit.prevent="selectContact">
             <input 
                 class="p-5 rounded-lg h-8 w-full bg-selected outline-none placeholder:text-icon"
@@ -21,12 +21,10 @@ import { mapState } from 'vuex';
 import ChatHeader from './ChatHeader.vue'
 import ChatContactCard from './ChatContactCard.vue';
 import ChatInput from './ChatInput.vue';
-import socket from '../lib/socket.io'
 
 export default {
     data() {
         return {
-            title: socket.id,
             messageToInput: ''
         }
     },
@@ -37,13 +35,12 @@ export default {
     },
     methods: {
         selectContact() {
-            // this.$store.commit('selectContact', contact)
             this.$store.commit('selectContact', this.messageToInput)
         }
     },
     computed: {
         ...mapState({
-            contacts: state => state.contacts
+            socketId: state => state.user.socketId
         })
     }
 }

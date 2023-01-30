@@ -1,6 +1,6 @@
 <template>
     <div class="chat-window relative">
-        <ChatHeader :activeContact="activeContact" />
+        <ChatHeader :activeContact="activeContact" :room="room" />
         <MessagesContainer />
         <ChatInput @sendMessage="sendMessage" />
     </div>
@@ -31,7 +31,8 @@ export default {
     },
     computed: {
         ...mapState({
-            activeContact: state => state.activeContact
+            activeContact: state => state.activeContact,
+            room: state => state.user.room
         })
     }
 }

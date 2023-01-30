@@ -1,14 +1,20 @@
+import { signToken, verifyPass } from '../../../utils/auth.utils.js'
 class AuthController {
     async login(req, res, next) {
         const { body } = req
 
         try {
-            const user = users.find(user => user.username === body.username)
-            if(!user) throw new Error('user or password incorrect')
+            const { password, ...userWithoutPassword } = users.find(user => user.username === body.username)
+            if(!userWithoutPassword) res.status(403).send('user or password incorrect')
 
-            if(body.password !== user.password) throw new Error('user or password incorrect')
+            // const { password, ...userWithoutPassword } = user
 
-            const { password, ...userWithoutPassword } = user
+            const match = password === body.password
+            if(!match) res.status(403).send('user or password incorrect')
+
+            const signedToken = signToken(userWithoutPassword)
+
+            res.cookie('token', signedToken, { httpOnly: true })
             res.status(200).send(userWithoutPassword)
         } catch(error) {
             next(error)

@@ -1,8 +1,4 @@
-// import { config } from 'dotenv'
 import devConfig from './dev.js'
-// config()
-
-// const { NODE_ENV } = process.env
 
 let currentConfig = devConfig
 

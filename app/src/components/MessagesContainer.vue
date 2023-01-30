@@ -29,7 +29,7 @@ export default {
     },
     computed: {
         ...mapState({
-            usersSocketId: state => state.usersSocketId,
+            usersSocketId: state => state.user.socketId,
             messages: state => state.messages
         })
     }
