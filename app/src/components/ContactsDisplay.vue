@@ -9,10 +9,10 @@
             />
         </form>
         
-        <!-- <ChatContactCard 
+        <ChatContactCard 
             v-for="contact in contacts" 
             :contact="contact"
-        /> -->
+        />
     </aside>
 </template>
 
@@ -40,7 +40,8 @@ export default {
     },
     computed: {
         ...mapState({
-            socketId: state => state.user.socketId
+            socketId: state => state.user.socketId,
+            contacts: state => state.contacts
         })
     }
 }

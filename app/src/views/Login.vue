@@ -37,8 +37,7 @@
 </template>
 
 <script>
-// import { mapMutations } from 'vuex'
-
+import socket from '../lib/socket.io'
 export default {
     data() {
         return {
@@ -48,14 +47,12 @@ export default {
         }
     },
     methods: {
-        // ...mapMutations([
-        //     'login'
-        // ]),
         register() {
             if(!this.username) return this.error = true
 
             this.$store.commit('login', {
                 username: this.username,
+                socketId: socket.id,
                 room: this.room
             })
         },

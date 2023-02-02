@@ -14,6 +14,7 @@ const store = createStore({
           activeContact: '',
           // messages: {},
           messages: [],
+          contacts: []
      },
      getters: {
 
@@ -23,6 +24,9 @@ const store = createStore({
                console.log('receiving', payload)
                state.messages.push(payload)
           },
+          addContacts(state, contacts) {
+               state.contacts = contacts
+          },
           selectContact(state, payload) {
                state.activeContact = payload
           },
@@ -31,9 +35,11 @@ const store = createStore({
                state.user.socketId = socket
           },
           login(state, user) {
-               if(user.room) socket.emit('joinRoom', user.room)
+               user.status = 'ocupado'
                state.user = { ...state.user, ...user }
                state.isAuthenticated = true
+
+               socket.emit('setupUser', state.user)
                router.push('/chat')
           }
      },

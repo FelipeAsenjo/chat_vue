@@ -5,8 +5,8 @@
     >
         <AvatarImage :avatar="contact.avatar" />
         <div class="w-full place-self-center hidden lg:block">
-            <p class="text-lg">{{ contact.name }}</p>        
-            <p class="text-icon text-md">{{ contact.lastMessage }}</p>
+            <p class="text-lg">{{ contact.username }}</p>        
+            <p class="text-icon text-md">{{ contact.status }}</p>
             <hr class="h-[1px] text-secondary mt-2">
         </div>
     </div>

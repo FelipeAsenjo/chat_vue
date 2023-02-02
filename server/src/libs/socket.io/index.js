@@ -6,37 +6,39 @@ const corsOptions = {
     }
 }
 
+const connectedUsers = new Map()
+const randomNumber = maxNumber => Math.floor(Math.random() * (maxNumber + 1))
+const avatarPicture = () => `https://i.pravatar.cc/150?img=${randomNumber(70)}` 
+
 export default (server) => {
     const io = new SocketServer(server, corsOptions)
 
     io.on('connection', (socket) => {
-        let connectedSockets = io.sockets.adapter.rooms
-        // socket.id = contacts[randomNumber(contacts.length)]
+        // let connectedSockets = io.sockets.adapter.rooms
 
-        // socket.on('reassignUsersRoom', (usersSocketId) => {
-        //     console.log('reasignando usuario', usersSocketId)
-        //     socket.id = usersSocketId
-        // })
-        socket.on('joinRoom', (room) => {
-            socket.join(room)
+        socket.on('setupUser', (user) => {
+            if(user.room) socket.join(user.room)
+
+            user.avatar = avatarPicture()
+            console.log(user.avatar)
+            connectedUsers.set(socket.id, user)
+            io.emit('newUserConnected', Array.from(connectedUsers.values()))
         })
 
         console.log('user connected', socket.id)
-        socket.emit('newUserConnected', connectedSockets)
 
         socket.on('message', (data, cb) => {
             console.log(data)
-            // const room = `${socket.id}-${data.to}`
-            // socket.emit('broadcastMessage', data)
             socket.to(data.to).emit('broadcastMessage', data)
-            // console.log(socket.rooms)
-            // console.log(socket)
             cb({
                 status: 'ok'
             })
         })
 
         socket.on('disconnect', (reason) => {
+            connectedUsers.delete(socket.id)
+            io.emit('newUserConnected', Array.from(connectedUsers.values()))
+            console.log('disconnected', socket.id)
             console.log('user disconnected', reason)
         })
     })
