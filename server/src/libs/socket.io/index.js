@@ -14,18 +14,14 @@ export default (server) => {
     const io = new SocketServer(server, corsOptions)
 
     io.on('connection', (socket) => {
-        // let connectedSockets = io.sockets.adapter.rooms
 
         socket.on('setupUser', (user) => {
             if(user.room) socket.join(user.room)
 
             user.avatar = avatarPicture()
-            console.log(user.avatar)
             connectedUsers.set(socket.id, user)
             io.emit('newUserConnected', Array.from(connectedUsers.values()))
         })
-
-        console.log('user connected', socket.id)
 
         socket.on('message', (data, cb) => {
             console.log(data)

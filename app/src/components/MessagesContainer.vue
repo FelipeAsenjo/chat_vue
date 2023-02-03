@@ -4,7 +4,7 @@
     >
         <ul class="flex flex-col self-end w-full px-14">
             <li 
-                v-for="message in messages"
+                v-for="message in messages[activeContact.socketId]"
                 class="mb-2 py-1.5 px-3 rounded-md w-fit"
                 :class="[
                     message.emitter === usersSocketId ?
@@ -24,14 +24,15 @@ import { mapState } from 'vuex';
 export default {
     data() {
         return {
-
+            
         }
     },
     computed: {
         ...mapState({
             usersSocketId: state => state.user.socketId,
-            messages: state => state.messages
-        })
+            messages: state => state.messages,
+            activeContact: state => state.activeContact,
+        }),
     }
 }
 </script>

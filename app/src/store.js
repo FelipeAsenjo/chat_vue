@@ -4,31 +4,52 @@ import socket from './lib/socket.io'
 
 const globalDate = new Date()
 export const randomId = globalDate.getTime()
-// const serverURL = 'http://localhost:3000/api/v1'
 
 const store = createStore({
      state: {
           isAuthenticated: false,
           user: {},
-          // activeContact: {},
           activeContact: '',
-          // messages: {},
-          messages: [],
+          messages: {},
+          // messages: [],
           contacts: []
      },
      getters: {
-
+          
      },
      mutations: {
           addMessage(state, payload) {
-               console.log('receiving', payload)
-               state.messages.push(payload)
+               const emitterIsMySelf = payload.emitter === state.user.socketId
+               console.log('emitter is myself', emitterIsMySelf)
+
+               const previousContactMessageExist = Object.keys(state.messages)?.includes(payload.emitter)
+               const previousUserMessageExist = Object.keys(state.messages)?.includes(payload.to)
+               if(!previousContactMessageExist && !previousUserMessageExist) {
+                    emitterIsMySelf ? 
+                         state.messages[payload.to] = [ payload ] :
+                         state.messages[payload.emitter] = [ payload ] 
+
+                    console.log('first message', state.messages)
+                    return
+               }
+
+               emitterIsMySelf ? 
+                    state.messages[payload.to].push(payload) :
+                    state.messages[payload.emitter].push(payload)
+               
+               // state.messages[payload.emitter].push(payload)
+               console.log('messages per user', state.messages)
           },
           addContacts(state, contacts) {
                state.contacts = contacts
           },
           selectContact(state, payload) {
+               state.user.room = ''
                state.activeContact = payload
+          },
+          selectRoom(state, payload) {
+               state.activeContact = ''
+               state.user.room = payload
           },
           assignSocket(state, socket) {
                console.log(socket)
@@ -51,7 +72,6 @@ const store = createStore({
                     timestamp: date.getTime()
                }
                commit('addMessage', payload)
-               console.log(payload)
                socket.emit('message', payload, (res) => {
                     // if(res.status === 'ok') console.log('message received')
                })               

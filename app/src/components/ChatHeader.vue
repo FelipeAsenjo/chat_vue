@@ -3,8 +3,15 @@
         <div class="flex h-full justify-center" v-if="title">
             <div class='self-center'>{{ title }}</div>
         </div>
-        <div class="flex h-full justify-center" v-if="activeContact">
-            <div class='self-center'>{{ activeContact }}</div>
+        <div class="flex h-full" v-if="activeContact">
+            <AvatarImage :avatar="activeContact.avatar" />
+            <!-- <div class='self-center'>{{ activeContact.username }}</div> -->
+            <div class="self-center flex flex-col">
+                <p>{{ activeContact.username }}</p>
+                <small class="text-icon">
+                    {{ activeContact.status }}
+                </small>
+            </div>
         </div>
         <div class="flex h-full justify-center" v-if="room">
             <div class='self-center'>{{ room }}</div>
@@ -13,7 +20,6 @@
             class="flex"
             v-if="activeContact"
         >
-            <AvatarImage :avatar="activeContact.avatar" />
             <div class="self-center flex flex-col">
                 <p>{{ activeContact.name }}</p>
                 <small class="text-icon">

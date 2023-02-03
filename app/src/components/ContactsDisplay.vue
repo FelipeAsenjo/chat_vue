@@ -1,10 +1,10 @@
 <template>
     <aside>
         <ChatHeader :title="socketId"  class="mb-1"/>
-        <form @submit.prevent="selectContact">
+        <form @submit.prevent="selectRoom">
             <input 
                 class="p-5 rounded-lg h-8 w-full bg-selected outline-none placeholder:text-icon"
-                v-model="messageToInput" 
+                v-model="joinRoom" 
                 placeholder="Message to..."
             />
         </form>
@@ -25,7 +25,7 @@ import ChatInput from './ChatInput.vue';
 export default {
     data() {
         return {
-            messageToInput: ''
+            joinRoom: ''
         }
     },
     components: {
@@ -34,8 +34,8 @@ export default {
         ChatInput
     },
     methods: {
-        selectContact() {
-            this.$store.commit('selectContact', this.messageToInput)
+        selectRoom() {
+            this.$store.commit('selectRoom', this.joinRoom)
         }
     },
     computed: {

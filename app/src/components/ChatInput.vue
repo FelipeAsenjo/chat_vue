@@ -38,13 +38,13 @@ export default {
     methods: {
         sendMessage() {
             const contactIsSelected = !!Object.keys(this.activeContact).length 
-                
             if(!this.roomSelected && !contactIsSelected) return this.input = ''
 
             this.$store.dispatch('sendMessage', { 
                 emitter: this.usersSocketId, 
-                to: this.roomSelected || this.activeContact,
-                msg: this.input 
+                to: this.roomSelected || this.activeContact.socketId,
+                msg: this.input,
+                read: false 
             })
             this.input = ''
         }
