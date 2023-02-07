@@ -1,6 +1,7 @@
 <template>
     <div 
-        class="flex h-20 min-w-90 max-w-[450px] mt-1 mr-0 lg:mr-2 hover:bg-secondary cursor-pointer"
+        class="flex h-20 min-w-90 max-w-[450px] 
+            mt-1 mr-0 lg:mr-2 hover:bg-secondary cursor-pointer"
         @click="selectContact(contact)"
     >
         <AvatarImage :avatar="contact.avatar" />

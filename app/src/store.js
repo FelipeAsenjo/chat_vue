@@ -36,6 +36,9 @@ const store = createStore({
           addContacts(state, contacts) {
                state.contacts = contacts
           },
+          updateUser(state, user) {
+               state.user = user
+          },
           selectContact(state, payload) {
                state.user.room = ''
                state.activeContact = payload

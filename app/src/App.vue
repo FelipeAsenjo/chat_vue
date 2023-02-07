@@ -22,14 +22,18 @@ import socket from './lib/socket.io'
     methods: {
       ...mapMutations([
         'addMessage',
-        'addContacts'
+        'addContacts',
+        'updateUser'
       ])
     },
     mounted() {
       socket.on('broadcastMessage', data => this.addMessage(data))
       socket.on('newUserConnected', users => {
         const contacts = users.filter(user => user.socketId !== socket.id)
+        const user = users.filter(user => user.socketId === socket.id)[0]
+
         this.addContacts(contacts)
+        this.updateUser(user)
       })
     }
   }

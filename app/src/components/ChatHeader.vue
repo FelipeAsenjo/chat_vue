@@ -1,7 +1,7 @@
 <template>
     <header class="bg-secondary h-[59px]">
-        <div class="flex h-full justify-center" v-if="title">
-            <div class='self-center'>{{ title }}</div>
+        <div class="flex h-full justify-center" v-if="avatar">
+            <AvatarImage :avatar="avatar" />
         </div>
         <div class="flex h-full" v-if="activeContact">
             <AvatarImage :avatar="activeContact.avatar" />
@@ -40,7 +40,7 @@ export default {
     },
     props: [
         'activeContact',
-        'title',
+        'avatar',
         'room'
     ],
     components: {
