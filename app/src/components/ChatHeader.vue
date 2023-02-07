@@ -5,7 +5,6 @@
         </div>
         <div class="flex h-full" v-if="activeContact">
             <AvatarImage :avatar="activeContact.avatar" />
-            <!-- <div class='self-center'>{{ activeContact.username }}</div> -->
             <div class="self-center flex flex-col">
                 <p>{{ activeContact.username }}</p>
                 <small class="text-icon">

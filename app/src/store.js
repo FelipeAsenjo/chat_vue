@@ -11,7 +11,6 @@ const store = createStore({
           user: {},
           activeContact: '',
           messages: {},
-          // messages: [],
           contacts: []
      },
      getters: {
@@ -20,25 +19,19 @@ const store = createStore({
      mutations: {
           addMessage(state, payload) {
                const emitterIsMySelf = payload.emitter === state.user.socketId
-               console.log('emitter is myself', emitterIsMySelf)
-
+               const isRoom = payload.to.includes('room')
                const previousContactMessageExist = Object.keys(state.messages)?.includes(payload.emitter)
                const previousUserMessageExist = Object.keys(state.messages)?.includes(payload.to)
+
                if(!previousContactMessageExist && !previousUserMessageExist) {
-                    emitterIsMySelf ? 
+                    return emitterIsMySelf || isRoom ? 
                          state.messages[payload.to] = [ payload ] :
                          state.messages[payload.emitter] = [ payload ] 
-
-                    console.log('first message', state.messages)
-                    return
                }
 
-               emitterIsMySelf ? 
+               emitterIsMySelf || isRoom ? 
                     state.messages[payload.to].push(payload) :
                     state.messages[payload.emitter].push(payload)
-               
-               // state.messages[payload.emitter].push(payload)
-               console.log('messages per user', state.messages)
           },
           addContacts(state, contacts) {
                state.contacts = contacts
@@ -47,16 +40,16 @@ const store = createStore({
                state.user.room = ''
                state.activeContact = payload
           },
-          selectRoom(state, payload) {
+          selectRoom(state, roomName) {
                state.activeContact = ''
-               state.user.room = payload
-          },
-          assignSocket(state, socket) {
-               console.log(socket)
-               state.user.socketId = socket
+               state.user.room = `room:${roomName}`
+
+               socket.emit('joinRoom', state.user.room)
           },
           login(state, user) {
                user.status = 'ocupado'
+               if(user.room) user.room = `room:${user.room}`
+
                state.user = { ...state.user, ...user }
                state.isAuthenticated = true
 
@@ -71,10 +64,7 @@ const store = createStore({
                     ...data,
                     timestamp: date.getTime()
                }
-               commit('addMessage', payload)
-               socket.emit('message', payload, (res) => {
-                    // if(res.status === 'ok') console.log('message received')
-               })               
+               socket.emit('message', payload)               
           },
      }
 })

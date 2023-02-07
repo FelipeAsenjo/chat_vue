@@ -20,23 +20,23 @@ export default (server) => {
 
             user.avatar = avatarPicture()
             connectedUsers.set(socket.id, user)
+
             io.emit('newUserConnected', Array.from(connectedUsers.values()))
         })
 
-        socket.on('message', (data, cb) => {
-            console.log(data)
-            socket.to(data.to).emit('broadcastMessage', data)
-            cb({
-                status: 'ok'
-            })
+        socket.on('message', data => {
+            io.to(data.emitter).to(data.to).emit('broadcastMessage', data)
         })
+
+        socket.on('joinRoom', roomName => socket.join(roomName))
+
 
         socket.on('disconnect', (reason) => {
             connectedUsers.delete(socket.id)
             io.emit('newUserConnected', Array.from(connectedUsers.values()))
+
             console.log('disconnected', socket.id)
             console.log('user disconnected', reason)
         })
     })
-
 }

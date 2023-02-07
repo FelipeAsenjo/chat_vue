@@ -22,7 +22,6 @@ import socket from './lib/socket.io'
     methods: {
       ...mapMutations([
         'addMessage',
-        'assignSocket',
         'addContacts'
       ])
     },
@@ -31,7 +30,6 @@ import socket from './lib/socket.io'
       socket.on('newUserConnected', users => {
         const contacts = users.filter(user => user.socketId !== socket.id)
         this.addContacts(contacts)
-        console.log(contacts)
       })
     }
   }

@@ -5,7 +5,7 @@
             <input 
                 class="p-5 rounded-lg h-8 w-full bg-selected outline-none placeholder:text-icon"
                 v-model="joinRoom" 
-                placeholder="Message to..."
+                placeholder="Create or join a room..."
             />
         </form>
         
