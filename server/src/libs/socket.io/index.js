@@ -15,7 +15,7 @@ export default (server) => {
 
     io.on('connection', (socket) => {
 
-        socket.on('setupUser', (user) => {
+        socket.on('setupUser', user => {
             if(user.room) socket.join(user.room)
 
             user.avatar = avatarPicture()

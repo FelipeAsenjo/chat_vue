@@ -4,30 +4,10 @@
     >
         <ul class="flex flex-col self-end w-full px-14">
             <template v-if="room">
-                <li 
-                    v-for="message in messages[room]"
-                    class="mb-2 py-1.5 px-3 rounded-md w-fit"
-                    :class="[
-                        message.emitter === usersSocketId ?
-                            'self-end bg-messageSent' :
-                            'bg-secondary'
-                    ]"
-                >
-                    {{ message.msg }}
-                </li>
+                <ListMessages :messages="messages[room]" :usersSocketId="usersSocketId"/>
             </template>
             <template v-else>
-                <li 
-                    v-for="message in messages[activeContact.socketId]"
-                    class="mb-2 py-1.5 px-3 rounded-md w-fit"
-                    :class="[
-                        message.emitter === usersSocketId ?
-                            'self-end bg-messageSent' :
-                            'bg-secondary'
-                    ]"
-                >
-                    {{ message.msg }}
-                </li>
+                <ListMessages :messages="messages[activeContact.socketId]" :usersSocketId="usersSocketId"/>
             </template>
         </ul>
     </div>
@@ -35,12 +15,16 @@
 
 <script>
 import { mapState } from 'vuex';
+import ListMessages from './ListMessages.vue';
 
 export default {
     data() {
         return {
             
         }
+    },
+    components: {
+        ListMessages
     },
     computed: {
         ...mapState({

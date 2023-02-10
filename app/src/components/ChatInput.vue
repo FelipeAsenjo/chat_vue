@@ -28,6 +28,7 @@ export default {
     computed: {
         ...mapState({
             usersSocketId: state => state.user.socketId,
+            username: state => state.user.username,
             activeContact: state => state.activeContact,
             roomSelected: state => state.user.room
         }),
@@ -41,6 +42,7 @@ export default {
             if(!this.roomSelected && !contactIsSelected) return this.input = ''
 
             this.$store.dispatch('sendMessage', { 
+                username: this.username,
                 emitter: this.usersSocketId, 
                 to: this.roomSelected || this.activeContact.socketId,
                 msg: this.input,

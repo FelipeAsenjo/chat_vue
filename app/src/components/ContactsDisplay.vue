@@ -51,7 +51,6 @@ export default {
         },
         showMenu() {
             this.activeMobileMenu = !this.activeMobileMenu
-            console.log('show menu')
         }
     },
     computed: {
