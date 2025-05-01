@@ -1,6 +1,6 @@
 <template>
     <header class="bg-secondary h-[59px]">
-        <div class="flex h-full justify-center" v-if="avatar">
+        <div class="flex h-full" v-if="avatar">
             <AvatarImage :avatar="avatar" />
         </div>
         <div class="flex h-full" v-if="activeContact">

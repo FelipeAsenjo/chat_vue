@@ -3,11 +3,12 @@
         <ChatHeader :avatar="usersAvatar" class="mb-1"/>
         <div 
             class="lg:hidden hover:cursor-pointer"
+            :class="[activeMobileMenu ? 'flex justify-end' : '']"
             @click="showMenu"
         >
             <h1 
                 class="text-6xl text-center text-icon"
-                :class="[activeMobileMenu ? 'rotate-45 text-[#fff]' : '']"
+                :class="[activeMobileMenu ? 'rotate-45' : '']"
             >
                 +
             </h1>
