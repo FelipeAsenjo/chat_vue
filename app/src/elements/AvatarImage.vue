@@ -2,7 +2,7 @@
         <img 
             v-if="avatar" 
             :src="avatar" 
-            class="h-14 mx-1.5 p-1.5 lg:mx-4 rounded-full self-center"
+            class="h-12 lg:mr-4 rounded-full self-center"
             alt="avatar image" 
         >
 </template>
@@ -16,6 +16,9 @@ export default {
     },
     props: [
         'avatar'
-    ]
+    ],
+    methods: {
+        myMethod: () => { return 'mr-8' }
+    }
 }
 </script>

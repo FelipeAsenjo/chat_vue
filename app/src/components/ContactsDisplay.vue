@@ -1,10 +1,14 @@
 <template>
     <aside>
-        <ChatHeader :avatar="usersAvatar" class="mb-1"/>
+        <ChatHeader 
+            class="p-2"
+            :avatar="usersAvatar" 
+            :activeMobileMenu="activeMobileMenu"
+        />
         <div 
             class="lg:hidden hover:cursor-pointer"
             :class="[activeMobileMenu ? 'flex justify-end' : '']"
-            @click="showMenu"
+            @click="toggleMenu"
         >
             <h1 
                 class="text-6xl text-center text-icon"
@@ -13,7 +17,7 @@
                 +
             </h1>
         </div>
-        <form @submit.prevent="selectRoom">
+        <form :class="[activeMobileMenu ? 'p-2' : 'lg:p-2']" @submit.prevent="selectRoom">
             <input 
                 class="p-5 rounded-lg h-8 w-full bg-selected outline-none 
                     lg:block placeholder:text-icon"
@@ -26,6 +30,7 @@
         <ChatContactCard 
             v-for="contact in contacts" 
             :contact="contact"
+            :activeMobileMenu="activeMobileMenu"
         />
     </aside>
 </template>
@@ -50,7 +55,7 @@ export default {
         selectRoom() {
             this.$store.commit('selectRoom', this.joinRoom)
         },
-        showMenu() {
+        toggleMenu() {
             this.activeMobileMenu = !this.activeMobileMenu
         }
     },

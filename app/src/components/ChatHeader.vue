@@ -1,16 +1,13 @@
 <template>
-    <header class="bg-secondary h-[59px]">
-        <div class="flex h-full" v-if="avatar">
-            <AvatarImage :avatar="avatar" />
+    <header class="bg-secondary min-h-[65px]">
+        <div class="flex h-fit" v-if="avatar">
+            <AvatarImage :avatar="avatar" :class="[activeMobileMenu ? 'mr-4' : '']" />
+            <p class="text-lg" :class="[activeMobileMenu ? 'block' : 'hidden lg:block']">
+                {{ username }}
+            </p>
         </div>
         <div class="flex h-full" v-if="activeContact">
-            <AvatarImage :avatar="activeContact.avatar" />
-            <div class="self-center flex flex-col">
-                <p>{{ activeContact.username }}</p>
-                <small class="text-icon">
-                    {{ activeContact.status }}
-                </small>
-            </div>
+            <ChatContactCard :contact="activeContact" :displayText="true" />
         </div>
         <div class="flex h-full justify-center" v-if="room">
             <div class='self-center'>{{ room }}</div>
@@ -30,7 +27,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import AvatarImage from '../elements/AvatarImage.vue';
+import ChatContactCard from './ChatContactCard.vue';
 
 export default {
     data() {
@@ -41,10 +40,17 @@ export default {
     props: [
         'activeContact',
         'avatar',
-        'room'
+        'room',
+        'activeMobileMenu',
     ],
     components: {
-        AvatarImage
+        AvatarImage,
+        ChatContactCard
+    },
+    computed: {
+        ...mapState({
+            username: state => state.user.username,
+        }),
     }
 }
 </script>
