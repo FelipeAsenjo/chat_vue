@@ -1,16 +1,19 @@
 <template>
     <footer class="absolute bottom-0 flex justify-center bg-secondary h-[59px] w-full">
         <form 
-            class="w-5/6 place-self-center"
+            class="px-2 w-full place-self-center flex lg:w-5/6"
             @submit.prevent="sendMessage"
         >
             <input 
                 type="text" 
-                class="form-input" 
+                class="form-input mr-2 lg:mr-0" 
                 placeholder="Type a message"
                 v-model.trim="input"
                 @input="typing"
             > 
+            <button class="block lg:hidden">
+                <img src="../assets/send.png" alt="Send Message" height="36" width="36" />
+            </button>
         </form>
     </footer>
 </template>
@@ -38,6 +41,7 @@ export default {
     },
     methods: {
         sendMessage() {
+            if(!this.input.trim()) return
             const contactIsSelected = !!Object.keys(this.activeContact).length 
             if(!this.roomSelected && !contactIsSelected) return this.input = ''
 
