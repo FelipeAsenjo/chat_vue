@@ -2,7 +2,7 @@
     <div 
         class="messages-container absolute top-[59px] flex bg-black z-10 w-full overflow-hidden"
     >
-        <ul class="flex flex-col self-end w-full px-2 md:px-14">
+        <ul class="flex flex-col self-end w-full h-full overflow-y-auto px-2 pt-4 md:px-14">
             <template v-if="room">
                 <ListMessages :messages="messages[room]" :usersSocketId="usersSocketId"/>
             </template>
