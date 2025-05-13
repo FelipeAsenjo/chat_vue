@@ -1,8 +1,8 @@
 <template>
     <header class="bg-secondary min-h-[65px] relative z-20 content-center">
-        <div class="flex h-fit" v-if="avatar">
+        <div class="flex h-fit items-center" v-if="avatar">
             <AvatarImage :avatar="avatar" :class="[activeMobileMenu ? 'mr-4' : '']" />
-            <p class="text-lg" :class="[activeMobileMenu ? 'block' : 'hidden lg:block']">
+            <p class="text-lg h-fit" :class="[activeMobileMenu ? 'block' : 'hidden lg:block']">
                 {{ username }}
             </p>
         </div>
