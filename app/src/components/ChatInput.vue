@@ -1,17 +1,17 @@
 <template>
     <footer class="absolute bottom-0 flex justify-center bg-secondary h-[59px] w-full">
         <form 
-            class="px-2 w-full place-self-center flex lg:w-5/6"
+            class="px-2 w-full place-self-center flex md:px-14"
             @submit.prevent="sendMessage"
         >
             <input 
                 type="text" 
-                class="form-input mr-2 lg:mr-0" 
+                class="form-input mr-2 md:mr-0" 
                 placeholder="Type a message"
                 v-model.trim="input"
                 @input="typing"
             > 
-            <button class="block lg:hidden">
+            <button class="block md:hidden">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="send" class="icon glyph w-[36px] h-[36px]" fill="#fff">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
