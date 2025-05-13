@@ -42,7 +42,10 @@ export default {
             const hours = messageDate.getHours()
             const minutes = messageDate.getMinutes()
 
-            return `${hours}:${minutes}`
+            const _hours = hours < 10 ? `0${hours}` : hours
+            const _minutes = minutes < 10 ? `0${minutes}` : minutes
+
+            return `${_hours}:${_minutes}`
         }
     },
     computed: {
