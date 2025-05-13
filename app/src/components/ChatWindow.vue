@@ -1,8 +1,8 @@
 <template>
     <div class="chat-window relative">
-        <ChatHeader :activeContact="activeContact" :room="room" />
+        <ChatHeader v-if="hasActiveChat" :activeContact="activeContact" :room="room" />
         <MessagesContainer />
-        <ChatInput @sendMessage="sendMessage" />
+        <ChatInput v-if="hasActiveChat" @sendMessage="sendMessage" />
     </div>
 </template>
 
@@ -33,7 +33,10 @@ export default {
         ...mapState({
             activeContact: state => state.activeContact,
             room: state => state.user.room
-        })
+        }),
+        hasActiveChat() {
+            return !!this.activeContact || !!this.room
+        }
     }
 }
 </script>
