@@ -11,6 +11,7 @@
         <p 
             v-if="room && message.emitter !== socketId"
             class="text-sm font-semibold text-error"
+            :style="{ color: `${ message.color }` }"
         >
             {{ message.username }}
         </p>
