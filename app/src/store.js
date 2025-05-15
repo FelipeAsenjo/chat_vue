@@ -30,8 +30,8 @@ const store = createStore({
                }
 
                emitterIsMySelf || isRoom ? 
-                    state.messages[payload.to].push(payload) :
-                    state.messages[payload.emitter].push(payload)
+                    state.messages[payload.to].unshift(payload) :
+                    state.messages[payload.emitter].unshift(payload)
           },
           addContacts(state, contacts) {
                state.contacts = contacts
