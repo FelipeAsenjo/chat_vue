@@ -2,7 +2,7 @@
     <div class="chat-window relative">
         <ChatHeader v-if="hasActiveChat" :activeContact="activeContact" :room="room" />
         <MessagesContainer />
-        <ChatInput v-if="hasActiveChat" @sendMessage="sendMessage" />
+        <ChatInput v-if="hasActiveChat" />
     </div>
 </template>
 
@@ -25,9 +25,7 @@ export default {
         MessagesContainer
     },
     methods: {
-        sendMessage(message) {
-            console.log('sending message', message)
-        }
+        
     },
     computed: {
         ...mapState({

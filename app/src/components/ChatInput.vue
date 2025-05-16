@@ -33,7 +33,6 @@ export default {
             input: ''
         }
     },
-    emits: ['sendMessage'],
     computed: {
         ...mapState({
             usersSocketId: state => state.user.socketId,
