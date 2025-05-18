@@ -1,6 +1,7 @@
 import { Server as SocketServer } from 'socket.io'
 
-const corsOptions = {
+const socketOptions = {
+    path: "/demo/app/web/ephemeral-chat/wss/socket.io",
     cors: {
         origin: "*"
     }
@@ -12,7 +13,7 @@ const avatarPicture = () => `https://i.pravatar.cc/150?img=${randomNumber(70)}`
 const userColor = () => `hsl(${randomNumber(360)}, 100%, 65%)`
 
 export default (server) => {
-    const io = new SocketServer(server, corsOptions)
+    const io = new SocketServer(server, socketOptions)
 
     io.on('connection', (socket) => {
 

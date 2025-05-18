@@ -6,7 +6,7 @@ const Login = () => import('./views/Login.vue')
 const NotFound = () => import('./views/NotFound.vue')
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory('/demo/app/web/ephemeral-chat/'),
     routes: [
         {
             path: '/',
